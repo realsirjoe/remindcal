@@ -221,6 +221,7 @@ func DrawingLoop(filename string, todayWinEnabled bool, debug bool) {
 
 	Raw()
 	Noecho()
+	Keypad(stdscr, true)
 	Curs_set(0)
 	Halfdelay(4)
 
@@ -303,11 +304,11 @@ func DrawingLoop(filename string, todayWinEnabled bool, debug bool) {
 		switch(c) {
 			case 'q': 
 				exit = true
-			case 'l':
+			case 'l', KEY_RIGHT:
 				if activeWin == CALENDAR_WIN { d.AddDay() } 
-			case 'h':
+			case 'h', KEY_LEFT:
 				if activeWin == CALENDAR_WIN { d.SubtractDay() }
-			case 'j':
+			case 'j', KEY_DOWN:
 				if activeWin == CALENDAR_WIN { d.AddWeek() 
 				} else if activeWin == EVENTS_WIN { 
 					if dayEvents, ok := events[d.NumericString()]; ok {
@@ -328,7 +329,7 @@ func DrawingLoop(filename string, todayWinEnabled bool, debug bool) {
 
 					}
 				}
-			case 'k': 
+			case 'k', KEY_UP: 
 				if activeWin == CALENDAR_WIN { d.SubtractWeek() 
 				} else if activeWin == EVENTS_WIN { 
 					if selectedEvent == 0 {

@@ -79,7 +79,11 @@ func Endwin() {
 func Getch() int {
 	return int(C.getch())
 }
-const KEY_RESIZE        = C.KEY_RESIZE
+const KEY_RESIZE = C.KEY_RESIZE
+const KEY_UP     = C.KEY_UP
+const KEY_LEFT   = C.KEY_LEFT
+const KEY_DOWN   = C.KEY_DOWN
+const KEY_RIGHT  = C.KEY_RIGHT
 
 ///////////////// WINDOW ////////////////////
 func Newwin(h int, w int, y int, x int) (window *Window, err error) {
