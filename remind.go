@@ -123,7 +123,10 @@ func parseRemindEvent(str string) (RawEvent, error) {
 }
 
 ///////////////// OTHER ////////////////////////////////
-func openEditor(editor string, filename string) {
+func openEditor(filename string) {
+	editor := os.Getenv("EDITOR")
+	if editor == "" { editor = "vim" }
+
 	cmd := exec.Command(editor, filename)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout

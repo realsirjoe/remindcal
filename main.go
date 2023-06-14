@@ -360,7 +360,7 @@ func DrawingLoop(filename string, todayWinEnabled bool, debug bool) {
 			case 'e':
 				//escaping from curses mode temporarily
 				Endwin()
-				openEditor("vim", filename)
+				openEditor(filename)
 				updateEvents = true
 				updateToday = true
 			case -1: // skip ERR ( see halfdelay )
