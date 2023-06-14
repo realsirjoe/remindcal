@@ -229,7 +229,7 @@ func DrawingLoop(filename string, todayWinEnabled bool, debug bool) {
 	Init_pair(1, COLOR_RED, -1);
 	Init_pair(2, COLOR_CYAN, -1);
 	Init_pair(3, COLOR_YELLOW, -1);
-	Init_pair(5, COLOR_WHITE, COLOR_RED);
+	Init_pair(5, COLOR_WHITE, COLOR_BLUE);
 
 	// Signal Handling for Terminal Resize Detection
 	c := make(chan os.Signal, 1)
