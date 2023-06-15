@@ -62,4 +62,4 @@ More examples are on the [Remind Wiki](https://dianne.skoll.ca/wiki/Remind)
 
 When you are done simply exit your editor and you'll be back in remindcal with your event added.
 This workflow allows me to store all my events in a maintainable format while sticking to the unix philosophy.
-There is also many great third party libraries that let you sync with iCal, CalDAV and more on the remind webpage.
+There is also many great third party libraries that let you sync with iCal, CalDAV and more on the [Remind Webpage](https://dianne.skoll.ca/projects/remind/).
