@@ -162,7 +162,7 @@ func openEditor(filename string, lineno int) {
 	// for certain editors jump to lineno as well
 	var cmd *exec.Cmd
 	switch filepath.Base(editor) {
-	case "vi", "vim", "nano":
+	case "vi", "vim", "nano", "emacs":
 		cmd = exec.Command(editor, "+" + strconv.Itoa(lineno), filename)
 	default:
 		cmd = exec.Command(editor, filename)
