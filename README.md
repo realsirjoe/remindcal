@@ -54,7 +54,12 @@ You can also specify events in a more conventional way:
 
     REM 2023-12-23 MSG Christmas Party
 
+For irregular complex events like easter:
+
+    REM [easterdate(year(today()))+1] MSG Easter Monday
+
 More examples are on the [Remind Wiki](https://dianne.skoll.ca/wiki/Remind)
 
-When you are done simply exit your editor and you'll be back in remindcal with your event added
-This workflow allows me to store all my events in a maintainable format while sticking to the unix philosophy
+When you are done simply exit your editor and you'll be back in remindcal with your event added.
+This workflow allows me to store all my events in a maintainable format while sticking to the unix philosophy.
+There is also many great third party libraries that let you sync with iCal, CalDAV and more on the remind webpage.
