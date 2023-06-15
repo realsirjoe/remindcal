@@ -137,17 +137,13 @@ func SubtractMonth(year int, month int) (int, int) {
 type Event struct {
 	Date Date
 	Message string
+	Filename string
+	Lineno int
 }
 func NewEvent(year int, month int, day int, message string) (e Event, err error) {
 	e.Date, err = NewDate(year, month, day)
 	e.Message = message
 	return
-}
-type RawEvent struct {
-	Year int
-	Month int
-	Day int
-	Message string
 }
 
 func main() {
@@ -160,17 +156,14 @@ func main() {
 	debug := false
 	DrawingLoop(filename, todayWinEnabled, debug)
 }
+
 // changes events in place
-func evaluateRawEvents(rawEvents []RawEvent, events map[string][]Event) {
-	for _, re := range rawEvents {
-		e, err := NewEvent(re.Year, re.Month, re.Day, re.Message)
-		if err != nil { panic(err) }
-		key := e.Date.NumericString()
-		if _, ok := events[key]; !ok {
-			events[key] = []Event{e}
-		} else {
-			events[key] = append(events[key], e)
-		}
+func addEvent(e Event, events map[string][]Event) {
+	key := e.Date.NumericString()
+	if _, ok := events[key]; !ok {
+		events[key] = []Event{e}
+	} else {
+		events[key] = append(events[key], e)
 	}
 }
 
@@ -179,7 +172,6 @@ const CALENDAR_WIN = 1
 const TODAY_WIN = 2
 
 func DrawingLoop(filename string, todayWinEnabled bool, debug bool) {
-	var rawEvents = []RawEvent{}
 	var events = map[string][]Event{}
 	var todayMessageLines = []string{}
 	var statusMessage = ""
@@ -269,8 +261,10 @@ func DrawingLoop(filename string, todayWinEnabled bool, debug bool) {
 			// This takes the longest and could freeze ui but generally only takes 0.03s
 			events = map[string][]Event{}
 			year, month := SubtractMonth(d.Year, d.Month)
-			rawEvents = getEvents(filename, year, month, 3)
-			evaluateRawEvents(rawEvents, events) 
+			eventsArr := getEvents(filename, year, month, 3)
+			for _, e := range eventsArr {
+				addEvent(e, events)
+			}
 
 			if debug { statusMessage = fmt.Sprintf("Remind took %fs", time.Now().Sub(start).Seconds()) }
 			updateEvents = false
@@ -361,7 +355,19 @@ func DrawingLoop(filename string, todayWinEnabled bool, debug bool) {
 			case 'e':
 				//escaping from curses mode temporarily
 				Endwin()
-				openEditor(filename)
+				// If there is a selectedEvent go directly to that events filename
+				editorFilename := filename
+				lineno := 0
+				if dayEvents, ok := events[d.NumericString()]; ok && selectedEvent >= 0 {
+					e := dayEvents[selectedEvent]
+					if e.Filename != "" {
+						editorFilename = e.Filename
+					}
+					if e.Lineno >= 0 {
+						lineno = e.Lineno
+					}
+				}
+				openEditor(editorFilename, lineno)
 				updateEvents = true
 				updateToday = true
 			case -1: // skip ERR ( see halfdelay )
