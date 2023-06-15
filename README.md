@@ -44,7 +44,7 @@ Will create an event for July 4th for all past years and all years to come
 
 Going on vacation:
 
-    REM May 7 2023 THROUGH May 21 MSG Europe Trip
+    REM May 7 2023 THROUGH May 21 2023 MSG Europe Trip
 
 Meeting:
 
