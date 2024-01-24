@@ -612,7 +612,7 @@ func drawStatus(win *Window, width int, message string) {
 	Wattroff(win, COLOR_PAIR(5))
 
 	// controls
-	Mvwprintw(win, 1, padding, "q:Quit TAB:ChgWin  e:Edit  h:Right  j:Down  k:Up  l:Left")
+	Mvwprintw(win, 1, padding, "q:Quit TAB:ChgWin  e:Edit  h:Left  j:Down  k:Up  l:Right")
 }
 
 
